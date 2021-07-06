@@ -31,7 +31,14 @@ body{
 	text-align:right;}	
 #cart a{
 	text-decoration:none;
-	text-transform:capitalize;}	
+	text-transform:capitalize;}
+#cart .login{
+	border: none;
+	background: none;
+	margin: 10px;
+	display: inline-flex;
+	justify-content: flex-end;
+}	
 #cart span{
 	display:inline-block;
 	width:30px;

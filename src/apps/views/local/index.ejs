@@ -36,7 +36,7 @@
 									<h4>
 										<a href="/product/<%= feature.id%>"> <%= feature.name%> </a>
 									</h4>
-									<p>Giá Bán: <span><%= feature.price%></span></p>
+									<p>Giá Bán: <span><%= formatPrice(feature.price) %></span></p>
 								</div>
 								<%}%>
 							</div>
@@ -55,7 +55,7 @@
 									<h4>
 										<a href="/product/<%=newPrd.id%>"><%= newPrd.name%></a>
 									</h4>
-									<p>Giá Bán: <span><%= newPrd.price%></span></p>
+									<p>Giá Bán: <span><%= formatPrice(newPrd.price) %></span></p>
 								</div>
 								<%}%>
 							</div>

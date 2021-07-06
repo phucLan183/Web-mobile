@@ -22,7 +22,9 @@
 			</div>
 			<div id="cart" class="col-lg-3 col-md-3 col-sm-12">
 				<% if(!loggedIn) { %>
-				<a class="mt-4 mr-2" href="/login">Login</a>
+				<button class="login">
+					<a class="login" href="/login">Login</a>
+				</button>
 				<%} else if(loggedIn) {%>
 				<a class="mt-4 mr-2" href="/logout">Logout</a>
 				<a class="mt-4 mr-2" href="/cart">giỏ hàng</a>

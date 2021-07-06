@@ -16,21 +16,17 @@ const indexLocal = async (req, res) => {
         is_stock: true
     }).limit(6)
 
-    const dataCategory = await getAllCategories()
-
     if (userId) {
         const result = await checkCart(userId)
         res.render('local/index', {
             featuredPrds: featuredPrd,
             statusPrds: statusPrd,
             cartPrds: result,
-            categories: dataCategory
         })
     } else {
         res.render('local/index', {
             featuredPrds: featuredPrd,
             statusPrds: statusPrd,
-            categories: dataCategory
         })
     }
 
@@ -57,8 +53,6 @@ const categoryLocal = async (req, res) => {
             cat_id: idCategory
         })
 
-        const dataCategory = await getAllCategories()
-
         if (userId) {
             const result = await checkCart(userId)
             res.render('local/category', {
@@ -69,7 +63,6 @@ const categoryLocal = async (req, res) => {
                 pages: Math.ceil(dataPrds / pagination.perPage),
                 url: `/category/${idCategory}?`,
                 cartPrds: result,
-                categories: dataCategory
             })
         } else {
             res.render('local/category', {
@@ -79,7 +72,6 @@ const categoryLocal = async (req, res) => {
                 current: pagination.page,
                 pages: Math.ceil(dataPrds / pagination.perPage),
                 url: `/category/${idCategory}?`,
-                categories: dataCategory
             })
         }
     } catch (error) {
@@ -100,20 +92,17 @@ const productLocal = async (req, res) => {
         select: 'full_name',
     })
 
-    const dataCategory = await getAllCategories()
     try {
         if (userId) {
             const result = await checkCart(userId)
             res.render('local/product', {
                 product: dataPrd,
                 cartPrds: result,
-                categories: dataCategory,
                 comments: dataComment
             })
         } else {
             res.render('local/product', {
                 product: dataPrd,
-                categories: dataCategory,
                 comments: dataComment
             })
         }
@@ -121,7 +110,6 @@ const productLocal = async (req, res) => {
         res.render('local/product', {
             product: "Không có thiết bị này",
             cartPrds: null,
-            categories: dataCategory
         })
     }
 }
@@ -170,7 +158,6 @@ const commentPrdLocal = async (req, res) => {
 const cartLocal = async (req, res) => {
     const userId = req.session.userId
     if (userId) {
-        const dataCategory = await getAllCategories()
         const dataCart = await CartModel.find({
             user_id: userId
         })
@@ -184,7 +171,6 @@ const cartLocal = async (req, res) => {
                 dataCart: dataCart,
                 totalMoney: totalMoney,
                 cartPrds: result,
-                categories: dataCategory
             })
         }
     } else {
@@ -242,8 +228,6 @@ const searchLocal = async (req, res) => {
             name: regex
         })
 
-        const dataCategory = await getAllCategories()
-
         if (userId) {
             const result = await checkCart(userId)
 
@@ -254,7 +238,6 @@ const searchLocal = async (req, res) => {
                 current: pagination.page,
                 pages: Math.ceil(length / pagination.perPage),
                 url: `/search?keyword=${keyword}&`,
-                categories: dataCategory,
                 length: length
             })
         } else {
@@ -264,7 +247,6 @@ const searchLocal = async (req, res) => {
                 current: pagination.page,
                 pages: Math.ceil(length / pagination.perPage),
                 url: `/search?keyword=${keyword}&`,
-                categories: dataCategory,
                 length: length
             })
         }
@@ -278,11 +260,6 @@ async function checkCart(idUser) {
         user_id: idUser
     })
     return amoutCart
-}
-
-async function getAllCategories() {
-    const categories = await CategoriesModel.find()
-    return categories
 }
 
 function escapeRegex(text) {

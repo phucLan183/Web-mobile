@@ -4,6 +4,7 @@
 		<%- include('layouts/head'); -%>
 		<link rel="stylesheet" href="/static/local/css/cart.css" />
 	</head>
+
 	<body>
 		<!--	Header	-->
 		<%- include('layouts/header'); -%>
@@ -56,7 +57,7 @@
 										/>
 									</div>
 									<div class="cart-price col-lg-3 col-md-3 col-sm-12">
-										<b><%= cart.items.price %> đ</b>
+										<b><%= formatPrice(cart.items.price) %> đ</b>
 										<a href="/cart-delete">Xóa</a>
 									</div>
 								</div>
@@ -76,7 +77,7 @@
 										<b>Tổng cộng:</b>
 									</div>
 									<div class="cart-price col-lg-3 col-md-3 col-sm-12">
-										<b><%= totalMoney %> đ</b>
+										<b><%= formatPrice(totalMoney) %> đ</b>
 									</div>
 								</div>
 							</form>

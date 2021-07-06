@@ -27,6 +27,10 @@ app.use("*", (req, res, next) => {
   next()
 })
 
+// Share
+const shareMiddlerware = require('./middlerware/share');
+app.use(shareMiddlerware)
+
 //fileupload
 app.use(fileUpload())
 
