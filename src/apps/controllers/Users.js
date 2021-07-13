@@ -13,7 +13,7 @@ const indexUsers = async (req, res) => {
             users: users,
             current: pagination.page,
             pages: Math.ceil(countUsers / pagination.perPage),
-            namepage: "user"
+            namePage: "user"
         })
     } catch (error) {
         console.log(error);

@@ -3,6 +3,7 @@ const CategoriesModel = require('../models/categories');
 module.exports = async (req, res, next) => {
   res.locals.categories = await CategoriesModel.find()
   res.locals.formatPrice = formatPrice
+  res.locals.nameLogin = req.session.admin
   next()
 }
 
@@ -13,3 +14,4 @@ function formatPrice(price) {
   }).format(price)
   return isFormatted
 }
+

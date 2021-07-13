@@ -5,10 +5,15 @@ const cartSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: "users"
     },
-    items: {
-        type: Object,
-        require: false
-    }
+    bag: [{
+        quantity: {
+            type: Number,
+        },
+        prd_id: {
+            type: mongoose.Types.ObjectId,
+            ref: "products"
+        }
+    }] 
 }, {
     timestamps: true
 })

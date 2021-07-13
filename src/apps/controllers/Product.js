@@ -12,13 +12,13 @@ const indexProduct = async (req, res) => {
     try {
         const products = await ProductsModel.find().populate({
             path: "cat_id"
-        }).skip(noPage).limit(pagination.perPage)
+        }).skip(noPage).limit(pagination.perPage).sort({"_id": -1})
         const countProducts = await ProductsModel.countDocuments()
         res.render('admin/product', {
             products: products,
             current: pagination.page,
             pages: Math.ceil(countProducts / pagination.perPage),
-            namepage: "product"
+            namePage: "product"
         })
     } catch (error) {
         console.log(error);

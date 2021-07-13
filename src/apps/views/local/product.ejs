@@ -56,7 +56,9 @@
 										<%}%>
 									</ul>
 									<div id="add-cart">
+										<% if( product.is_stock==true) {%>
 										<a href="/product/add-cart/<%= product._id %>">Mua ngay</a>
+										<%}%>
 									</div>
 								</div>
 							</div>
@@ -100,7 +102,7 @@
 									<div class="comment-item">
 										<ul>
 											<li><b> <%= comment.user_id.full_name%> </b></li>
-											<li><%= comment.createdAt%></li>
+											<li><%= comment.createdAt.toDateString() %></li>
 											<li>
 												<p><%= comment.body %></p>
 											</li>

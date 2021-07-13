@@ -13,7 +13,7 @@ const indexCategory = async (req, res) => {
             categories: categories,
             current: pagination.page,
             pages: Math.ceil(countUsers / pagination.perPage),
-            namepage: "category"
+            namePage: "category"
         })
     } catch (error) {
         console.log(error);

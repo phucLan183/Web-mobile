@@ -33,45 +33,48 @@ const indexLocal = async (req, res) => {
 }
 
 const categoryLocal = async (req, res) => {
-    const idCategory = req.params.id
-    const userId = req.session.userId
-    const pagination = {
-        page: Number(req.query.page) || 1,
-        perPage: 9,
-    }
-    const noPage = (pagination.perPage * pagination.page) - pagination.perPage
     try {
-        const titleCategory = await CategoriesModel.findById({
-            _id: idCategory
-        })
-
+        const idCategory = req.params.id
+        const categoryName = req.params.catName
+        const userId = req.session.userId
+        const pagination = {
+            page: Number(req.query.page) || 1,
+            perPage: 9,
+        }
+        const noPage = (pagination.perPage * pagination.page) - pagination.perPage
+    
         const limitPrd = await ProductsModel.find({
             cat_id: idCategory
+        }).populate({
+            path: 'cat_id',
+            select: 'title'
         }).skip(noPage).limit(pagination.perPage)
-
+        
+        const titleCategory = await limitPrd.map(e => {
+            return e.cat_id.title
+        })
         const dataPrds = await ProductsModel.countDocuments({
             cat_id: idCategory
         })
-
         if (userId) {
             const result = await checkCart(userId)
             res.render('local/category', {
                 products: limitPrd,
                 total: dataPrds,
-                title: titleCategory.title,
                 current: pagination.page,
+                title: titleCategory[0],
                 pages: Math.ceil(dataPrds / pagination.perPage),
-                url: `/category/${idCategory}?`,
+                url: `/category/${categoryName}/${idCategory}?`,
                 cartPrds: result,
             })
         } else {
             res.render('local/category', {
                 products: limitPrd,
                 total: dataPrds,
-                title: titleCategory.title,
                 current: pagination.page,
+                title: titleCategory[0],
                 pages: Math.ceil(dataPrds / pagination.perPage),
-                url: `/category/${idCategory}?`,
+                url: `/category/${categoryName}/${idCategory}?`,
             })
         }
     } catch (error) {
@@ -163,7 +166,7 @@ const cartLocal = async (req, res) => {
         })
         const result = await checkCart(userId)
         let totalMoney = 0
-        for (const doc of dataCart) {
+        for (let doc of dataCart) {
             totalMoney += doc.items.price
         }
         if (dataCart) {
@@ -256,10 +259,10 @@ const searchLocal = async (req, res) => {
 }
 
 async function checkCart(idUser) {
-    const amoutCart = await CartModel.countDocuments({
+    const amountCart = await CartModel.countDocuments({
         user_id: idUser
     })
-    return amoutCart
+    return amountCart
 }
 
 function escapeRegex(text) {

@@ -51,11 +51,11 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% for (let user of users) {%>
+									<%var i = 0 %> <% for (let user of users) {%>
 									<tr>
-										<td style=""><%=user._id%></td>
-										<td style=""><%=user.full_name%></td>
-										<td style=""><%=user.email%></td>
+										<td><%= ++i %></td>
+										<td><%=user.full_name%></td>
+										<td><%=user.email%></td>
 										<td>
 											<% if(user.role == 'admin') {%>
 											<span class="label label-danger"><%=user.role%></span>

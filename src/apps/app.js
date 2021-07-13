@@ -31,7 +31,7 @@ app.use("*", (req, res, next) => {
 const shareMiddlerware = require('./middlerware/share');
 app.use(shareMiddlerware)
 
-//fileupload
+//fileUpload
 app.use(fileUpload())
 
 //Router

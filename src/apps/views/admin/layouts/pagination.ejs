@@ -5,7 +5,7 @@
 		<ul class="pagination">
 			<% if (current !== 1) {%>
 			<li class="page-item">
-				<a class="page-link" href="/admin/<%= namepage %>">&laquo;</a>
+				<a class="page-link" href="/admin/<%= namePage %>">&laquo;</a>
 			</li>
 			<%}%>
 			<!-- Cac trang  -->
@@ -21,13 +21,13 @@
 			<!-- Xuong dong -->
 			<% if ( i == current ) {%>
 			<li class="page-item active">
-				<a class="page-link" href="/admin/<%= namepage %>/?page=<%= i %>">
+				<a class="page-link" href="/admin/<%= namePage %>/?page=<%= i %>">
 					<%= i %>
 				</a>
 			</li>
 			<%} else {%>
 			<li class="page-item">
-				<a class="page-link" href="/admin/<%= namepage %>/?page=<%= i %>">
+				<a class="page-link" href="/admin/<%= namePage %>/?page=<%= i %>">
 					<%= i %>
 				</a>
 			</li>
@@ -41,7 +41,7 @@
 			<!-- Cuoi trang  -->
 			<% if (current !== pages) {%>
 			<li class="page-item">
-				<a class="page-link" href="/admin/<%= namepage %>/?page=<%= pages %>">
+				<a class="page-link" href="/admin/<%= namePage %>/?page=<%= pages %>">
 					&raquo;
 				</a>
 			</li>

@@ -48,10 +48,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% for (let category of categories) {%>
+									<% var i = 0 %> <% for (let category of categories) {%>
 									<tr>
-										<td style=""><%= category._id %></td>
-										<td style=""><%= category.title%></td>
+										<td><%= ++i %></td>
+										<td><%= category.title%></td>
 										<td class="form-group">
 											<a
 												href="/admin/category/edit/<%= category._id %>"
