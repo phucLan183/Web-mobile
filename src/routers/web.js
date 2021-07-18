@@ -37,18 +37,17 @@ router.get('/admin/product/delete/:id', AuthMiddleware.checkAdmin, ProductContro
 
 //LOCAL
 router.get('/', LocalController.indexLocal)
-router.get('/cart', LocalController.cartLocal)
-router.get('/cart-payment', LocalController.payCartLocal)
-router.get('/cart-delete', LocalController.deleteCartLocal)
+router.get('/cart', AuthMiddleware.userNoneLogin, LocalController.cartLocal)
+router.get('/cart-payment', AuthMiddleware.userNoneLogin, LocalController.payCartLocal)
+router.get('/cart-delete/:id', AuthMiddleware.userNoneLogin, LocalController.deleteCartLocal)
 router.get('/category/:catName/:id', LocalController.categoryLocal)
 router.get('/category/:catName/:id?page=:page', LocalController.categoryLocal)
 router.get('/product/:id', LocalController.productLocal)
-router.get('/product/add-cart/:id', LocalController.addProductLocal)
 router.get('/search', LocalController.searchLocal)
 router.get('/search?:keyword&page=:page', LocalController.searchLocal)
-router.get('/login', AuthMiddleware.isLoginLocal, AuthController.loginLocal) 
-router.get('/register', AuthController.registerLocal)
-router.get('/logout', AuthMiddleware.noneLoginLocal, AuthController.logoutLocal)
+router.get('/login', AuthMiddleware.checkUserLogin, AuthController.loginLocal) 
+router.get('/register', AuthMiddleware.checkUserLogin, AuthController.registerLocal)
+router.get('/logout', AuthMiddleware.userNoneLogin, AuthController.logoutLocal)
 
 //POST
 
@@ -65,8 +64,10 @@ router.post('/admin/product/add', AuthMiddleware.checkAdmin, ProductController.n
 router.post('/admin/product/edit/:id', AuthMiddleware.checkAdmin, ProductController.updateProduct)
 
 //LOCAL
-router.post('/login', AuthController.postLoginLocal)
-router.post('/register', AuthController.postRegisterLocal)
-router.post('/cart-reload', LocalController.cartReloadLocal)
-router.post('/product/:id', LocalController.commentPrdLocal)
+router.post('/login', AuthMiddleware.checkUserLogin, AuthController.postLoginLocal)
+router.post('/register', AuthMiddleware.checkUserLogin, AuthController.postRegisterLocal)
+router.post('/cart-reload', AuthMiddleware.userNoneLogin, LocalController.cartReloadLocal)
+router.post('/product/add-cart/:id', AuthMiddleware.userNoneLogin, LocalController.addProductLocal)
+router.post('/product/:id/comment', AuthMiddleware.userNoneLogin, LocalController.commentPrdLocal)
+
 module.exports = router

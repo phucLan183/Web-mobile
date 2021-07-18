@@ -12,12 +12,12 @@ const checkAdmin = (req, res, next) => {
     next();
 }
 
-const isLoginLocal = (req, res, next) => {
+const checkUserLogin = (req, res, next) => {
     if (req.session.userId) return res.redirect('/')
     next()
 }
 
-const noneLoginLocal = (req, res, next) => {
+const userNoneLogin = (req, res, next) => {
     if (!req.session.userId) return res.redirect('/login')
     next()
 }
@@ -25,6 +25,6 @@ const noneLoginLocal = (req, res, next) => {
 module.exports = {
     checkLogin: checkLogin,
     checkAdmin: checkAdmin,
-    isLoginLocal: isLoginLocal,
-    noneLoginLocal: noneLoginLocal
+    checkUserLogin: checkUserLogin,
+    userNoneLogin: userNoneLogin
 }

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<%- include('layouts/head'); -%>
-		<link rel="stylesheet" href="/static/local/css/product.css" />
-	</head>
 
-	<body>
-		<!--	Header	-->
-		<%- include('layouts/header'); -%>
+<head>
+	<%- include('layouts/head'); -%>
+		<link rel="stylesheet" href="/static/local/css/product.css" />
+</head>
+
+<body>
+	<!--	Header	-->
+	<%- include('layouts/header'); -%>
 		<!--	End Header	-->
 
 		<!--	Body	-->
@@ -17,112 +18,128 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<!-- Navigation  -->
 						<%- include('layouts/navbar'); -%>
-						<!-- End Navigation  -->
+							<!-- End Navigation  -->
 					</div>
 				</div>
 				<div class="row">
 					<div id="main" class="col-lg-8 col-md-12 col-sm-12">
 						<!--	Slider	-->
 						<%- include('layouts/slider'); -%>
-						<!--	End Slider	-->
+							<!--	End Slider	-->
 
-						<!--	List Product	-->
-						<div id="product">
-							<div id="product-head" class="row">
-								<div id="product-img" class="col-lg-6 col-md-6 col-sm-12">
-									<img src="/static/local/images/<%= product.thumbnail%>" />
-								</div>
-								<div id="product-details" class="col-lg-6 col-md-6 col-sm-12">
-									<h1><%= product.name%></h1>
-									<ul>
-										<li>
-											<span>Đi kèm:</span>
-											<%= product.accessories%>
-										</li>
-										<li>
-											<span>Tình trạng:</span>
-											<%= product.status%>
-										</li>
-										<li>
-											<span>Khuyến Mại:</span>
-											<%= product.promotion%>
-										</li>
-										<li id="price">Giá Bán (chưa bao gồm VAT)</li>
-										<li id="price-number"><%= formatPrice(product.price) %></li>
-										<% if( product.is_stock==true) {%>
-										<li id="status-true">Còn hàng</li>
-										<%} else {%>
-										<li id="status-false">Hết hàng</li>
-										<%}%>
-									</ul>
-									<div id="add-cart">
-										<% if( product.is_stock==true) {%>
-										<a href="/product/add-cart/<%= product._id %>">Mua ngay</a>
-										<%}%>
+							<!--	List Product	-->
+							<div id="product">
+								<div id="product-head" class="row">
+									<div id="product-img" class="col-lg-6 col-md-6 col-sm-12">
+										<img src="/static/local/images/<%= product.thumbnail%>" />
 									</div>
-								</div>
-							</div>
-							<div id="product-body" class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<h3>Đánh giá về <%= product.name%></h3>
-									<%- product.description %>
-								</div>
-							</div>
-							<!--	Comment	-->
-
-							<% if (loggedIn) {%>
-							<div id="comment" class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<h3>Bình luận sản phẩm</h3>
-									<form method="post">
-										<div class="form-group">
-											<label>Nội dung:</label>
-											<textarea
-												name="comm_details"
-												required
-												rows="8"
-												class="form-control"
-											></textarea>
-										</div>
-										<button type="submit" name="sbm" class="btn btn-primary">
-											Gửi
-										</button>
-									</form>
-								</div>
-							</div>
-
-							<%}%>
-							<!--	End Comment	-->
-
-							<!--	Comments List	-->
-							<% if (comments.length > 0) {%>
-							<div id="comments-list" class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<% for (let comment of comments) { %>
-									<div class="comment-item">
+									<div id="product-details" class="col-lg-6 col-md-6 col-sm-12">
+										<h1>
+											<%= product.name%>
+										</h1>
 										<ul>
-											<li><b> <%= comment.user_id.full_name%> </b></li>
-											<li><%= comment.createdAt.toDateString() %></li>
 											<li>
-												<p><%= comment.body %></p>
+												<span>Đi kèm:</span>
+												<%= product.accessories%>
 											</li>
+											<li>
+												<span>Tình trạng:</span>
+												<%= product.status%>
+											</li>
+											<li>
+												<span>Khuyến Mại:</span>
+												<%= product.promotion%>
+											</li>
+											<li id="price">Giá Bán (chưa bao gồm VAT)</li>
+											<li id="price-number">
+												<%= formatPrice(product.price) %>
+											</li>
+											<% if( product.is_stock==true) {%>
+												<li id="status-true">Còn hàng</li>
+												<%} else {%>
+													<li id="status-false">Hết hàng</li>
+													<%}%>
 										</ul>
+										<% if(product.is_stock){%>
+											<form method="post" action="/product/add-cart/<%= product._id %>">
+												<div class="form-row align-items-center">
+													<div class="col-sm-3 my-1">
+														<div class="input-group">
+															<input type="number" class="form-control" min="1" value="1" name="quantity" id="quantity"
+																placeholder="Số lượng">
+														</div>
+													</div>
+													<div class="col-auto my-1">
+														<button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+													</div>
+												</div>
+											</form>
+											<% }%>
 									</div>
-									<%}%>
 								</div>
-							</div>
-							<%}%>
-							<!--	End Comments List	-->
-						</div>
-						<!--	End Product	-->
+								<div id="product-body" class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<h3>Đánh giá về <%= product.name%>
+										</h3>
+										<%- product.description %>
+									</div>
+								</div>
+								<!--	Comment	-->
 
-						<!-- Pagination -->
-						<!-- End Pagination -->
+								<% if (loggedIn) {%>
+									<div id="comment" class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<h3>Bình luận sản phẩm</h3>
+											<form method="post" action="/product/<%= product.id%>/comment">
+												<div class="form-group">
+													<label>Nội dung:</label>
+													<textarea name="comm_details" required rows="8" class="form-control"></textarea>
+												</div>
+												<button type="submit" name="sbm" class="btn btn-primary">
+													Gửi
+												</button>
+											</form>
+										</div>
+									</div>
+
+									<%}%>
+										<!--	End Comment	-->
+
+										<!--	Comments List	-->
+										<% if (comments.length> 0) {%>
+											<div id="comments-list" class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<% for (let comment of comments) { %>
+														<div class="comment-item">
+															<ul>
+																<li><b>
+																		<%= comment.user_id.full_name%>
+																	</b></li>
+																<li>
+																	<%= comment.createdAt.toDateString() %>
+																</li>
+																<li>
+																	<p>
+																		<%= comment.body %>
+																	</p>
+																</li>
+															</ul>
+														</div>
+														<%}%>
+												</div>
+											</div>
+											<%}%>
+												<!--	End Comments List	-->
+							</div>
+							<!--	End Product	-->
+
+							<!-- Pagination -->
+							<!-- End Pagination -->
 					</div>
 
 					<!-- Sidebar -->
 					<%- include('layouts/sidebar'); -%>
-					<!-- End Sidebar -->
+						<!-- End Sidebar -->
 				</div>
 			</div>
 		</div>
@@ -130,6 +147,7 @@
 
 		<!--	Footer	-->
 		<%- include('layouts/footer'); -%>
-		<!--	End Footer	-->
-	</body>
+			<!--	End Footer	-->
+</body>
+
 </html>

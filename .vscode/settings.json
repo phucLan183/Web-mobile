@@ -1,4 +1,14 @@
 {
     "prettier.useTabs": true,
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "cSpell.words": [
+        "ng",
+        "nh",
+        "nhập",
+        "p",
+        "t",
+        "xu",
+        "xuất",
+        "Đăng"
+    ]
 }
